@@ -178,7 +178,7 @@ async function refreshAnalysis() {
     refreshButton.disabled = true;
 
     try {
-        const response = await fetch('/dashboard_data');
+        const response = await fetch('https://tradeon.onrender.com/dashboard_data');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -260,7 +260,7 @@ async function downloadReport() {
     downloadButton.disabled = true;
 
     try {
-        const response = await fetch(`http://127.0.0.1:8000/download_report?end_date=${date}`);
+        const response = await fetch(`https://tradeon.onrender.com/download_report?end_date=${date}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -296,3 +296,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(refreshAnalysis, 10000000000);
 
 });
+
