@@ -28,6 +28,7 @@ else:
 
 # Initialize FastAPI app
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Load the models once at start
 
