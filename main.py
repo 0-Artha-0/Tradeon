@@ -13,9 +13,22 @@ import gemini_models as gem
 import memory_functions as mem
 import re
 import json
+import os
+import base64
 
-# Run full framework
+# Decode ENCODED_DB into accounts.db for twscrape
+encoded_db = os.getenv("ENCODED_DB")
+if encoded_db:
+    with open("accounts.db", "wb") as f:
+        f.write(base64.b64decode(encoded_db))
+    print("✅ accounts.db decoded successfully.")
+else:
+    print("⚠️ ENCODED_DB not found in environment.")
 
+# Initialize FastAPI app
+app = FastAPI()
+
+# Load the models once at start
 
 def load_models():
     model, scaler = load_LSTM()
@@ -29,6 +42,7 @@ def load_models():
 
     return [model, scaler, arabert, finbert, client]
 
+# Run full framework
 
 async def apply_framework(models, end_date, company_name='Aramco'):
 
@@ -147,7 +161,6 @@ def decision_computed(today_date):
         return True
 
 
-app = FastAPI()
 
 # Configure CORS to allow your HTML file to fetch data
 origins = [
