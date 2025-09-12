@@ -1,9 +1,8 @@
 # main.py (FastAPI application)
-from fastapi import FastAPI
-from fastapi import FastAPI, Response
 import pandas as pd
 from datetime import datetime, timedelta, date
 import time
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Dict, Any
@@ -13,10 +12,10 @@ from sentiment_analysis import load_sentiment, analyze_sentiment
 import gemini_models as gem
 import memory_functions as mem
 import re
-import os
 import json
 
-app = FastAPI()
+# Run full framework
+
 
 def load_models():
     model, scaler = load_LSTM()
@@ -31,7 +30,6 @@ def load_models():
     return [model, scaler, arabert, finbert, client]
 
 
-# Run full framework
 async def apply_framework(models, end_date, company_name='Aramco'):
 
     print(f"\nTodays date: {end_date}", end="\n\n")
@@ -122,6 +120,8 @@ async def apply_framework(models, end_date, company_name='Aramco'):
     }
 
 # Helper function during testing retrieve last computed date and restart after it
+
+
 def remove_done(batch):
     memory = pd.read_excel('investment_memory.xlsx', engine='openpyxl')
 
@@ -145,6 +145,9 @@ def decision_computed(today_date):
         return False
     else:
         return True
+
+
+app = FastAPI()
 
 # Configure CORS to allow your HTML file to fetch data
 origins = [
@@ -181,7 +184,8 @@ async def dashboard_data():
 
     # Create a backtesting date range
     # Backtesting Settings
-    """backtest_dates = pd.date_range(
+    """
+    backtest_dates = pd.date_range(
         start="2025-04-23", end="2025-09-09", freq='D')
 
     # Convert the date range to a list of strings in 'DD-MM-YYYY' format
@@ -220,14 +224,15 @@ async def dashboard_data():
         lstm_list.append(results['lstm_pred'])
         sentiment_list.append(results['sentiment_score'])
 
-        if end_date != "09-09-2025":
+        if end_date != "12-09-2025":
             mem.update_memory_daily(
                 results['actual_price'], results['ground_percentage'])
 
         counter1 = counter1 + 1
-        counter2 = counter2 + 1 """
+        counter2 = counter2 + 1
 
-   # Daily Inference Settings
+    """
+    # Daily Inference Settings
     # ------------------------------------------------------------------
     # 1. Check first if the inference had been done for today
     today_date = date.today().strftime("%d-%m-%Y")
