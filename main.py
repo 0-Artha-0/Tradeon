@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta, date
 import time
 from fastapi import FastAPI, Response
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Dict, Any
@@ -190,6 +191,10 @@ class DashboardData(BaseModel):
 
 
 # To Run the FastAPI server: uvicorn main:app --reload
+@app.get("/")
+def display_dashboard():
+     return FileResponse("dashboard.html")
+    
 @app.get("/dashboard_data")
 async def dashboard_data():
     # In a real application, this would fetch data from a database,
