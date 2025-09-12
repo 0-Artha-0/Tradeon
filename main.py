@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta, date
 import time
 from fastapi import FastAPI, Response
+from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
