@@ -255,7 +255,7 @@ async def dashboard_data():
     # Daily Inference Settings
     # ------------------------------------------------------------------
     # 1. Check first if the inference had been done for today
-    today_date = date.today().strftime("%d-%m-%Y")
+    today_date = "12-09-2025"
 
     # 1.1 If yes, just fetch the data from memory and return it
     if decision_computed(today_date):
