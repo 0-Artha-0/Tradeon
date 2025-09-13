@@ -168,8 +168,8 @@ def fetch_data(start_date, end_date, entity_id="2222", max_records=1500):
         'accept': 'application/json, text/javascript, */*; q=0.01',
         'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
         'origin': 'https://www.saudiexchange.sa',
-        'referer': 'https://www.saudiexchange.sa/wps/portal/saudiexchange/newsandreports/reports-publications/historical-reports/!ut/p/z1/04_Sj9CPykssy0xPLMnMz0vMAfIjo8ziTR3NDIw8LAz8DTxCnA3MDILdzUJDLAyNXE30I4EKzHEqMDTTDyekoCA7zRMAIkY09Q!!/',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+        'referer': 'https://www.saudiexchange.sa/wps/portal/saudiexchange/newsandreports/reports-publications/historical-reports/',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
         'x-requested-with': 'XMLHttpRequest',
     }
 
@@ -183,6 +183,7 @@ def fetch_data(start_date, end_date, entity_id="2222", max_records=1500):
         payload['selectedEntity'] = entity_id  # Dynamic injection
         res = requests.post(url, headers=headers,
                             cookies=cookies, data=payload)
+        print("res.text")
         res.raise_for_status()
         rows = res.json().get("data", [])
         if not rows:
@@ -197,3 +198,4 @@ def fetch_data(start_date, end_date, entity_id="2222", max_records=1500):
     past_days = preprocess_data(past_days)
 
     return past_days
+
